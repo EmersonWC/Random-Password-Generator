@@ -5,22 +5,16 @@ var confirmCharacter;
 var confirmUppercase;
 var confirmLowercase;
 
-
-// Start Password variable values: 
-
-// Special characters 
+// charachters allowed for password 
 character = ["!", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "\:", "\;", " < ", "=", " > ", " ? ", "@", "[", "\\", "]", " ^ ", "_", "`", "{", "|", "}", "~"];
 
-// Numeric characters
+// Numbers allowed for password
 number = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-// Alphabetical characters
+// letters allowed a-z
 alpha = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-// Space is for the Uppercase conversion
-space = [];
-
-// Choices declared outside the if statement so they can be concatenated upon condition
+// choices declared out of if statement so it can be called upon condition
 var choices;
 
 // converts letters to uppercase 
@@ -28,7 +22,7 @@ var toUpper = function (x) {
     return x.toUpperCase();
 };
 
-// creates a variable for uppercase conversion
+// variable for uppercase conversion
 alpha2 = alpha.map(toUpper);
 
 // Get references to the #generate element
@@ -40,35 +34,33 @@ function writePassword() {
   // Asks for user input
   enter = parseInt(prompt("How many characters would you like your password? Choose between 8 and 128"));
  
-  // First if statement for user validation 
+  // if statement if nothing is entered after prompt "You must choose between 8 and 128"
   if (!enter) {
     alert("This needs a value");
 } else if (enter < 8 || enter > 128) {
-    // Validates user input
-    // Start user input prompts
+    //step 1 "Choose length of password"
     enter = parseInt(prompt("You must choose between 8 and 128"));
 
 } else {
-    // Continues once user input is validated
+    // Step 2 "password lowercase,uppercase,number & special character choices"
     confirmLowercase = confirm("Will this contain Lowercase letters?");
     confirmUppercase = confirm("Will this contain Uppercase letters?");
     confirmNumber = confirm("Will this contain numbers?");
     confirmCharacter = confirm("Will this contain special characters?");  
 };
 
-// Else if for 4 negative options
+//if statement if nothing is entered after prompt "You must choose between 8 and 128"
 if (!confirmCharacter && !confirmNumber && !confirmUppercase && !confirmLowercase) {
      choices = alert("You must chose a criteria!");
 }
 
-// First if statements that user input prompts to determine choices
-// Else if for 4 positive options
+// Else if for 4 positive options 
 else if (confirmCharacter && confirmNumber && confirmUppercase && confirmLowercase) {
 
    choices = character.concat(number, alpha, alpha2);
 }
 
-// Else if for 3 positive options
+// Else if for 3 positive options 
 else if (confirmCharacter && confirmNumber && confirmUppercase) {
   choices = character.concat(number,alpha);
 }
@@ -82,7 +74,6 @@ else if (confirmNumber && confirmLowercase && confirmUppercase) {
   choices = number.concat(alpha, alpha2);
 }
 
-// Else if for 2 positive options
 // Else if for 2 positive options 
 else if (confirmCharacter && confirmNumber) {
   choices = character.concat(number);
@@ -102,7 +93,7 @@ else if (confirmLowercase && confirmNumber) {
 } else if (confirmNumber && confirmUppercase) {
   choices = number.concat(alpha2);
 }
-// Else if for 1 positive option
+// Else if for 1 positive option 
 else if (confirmCharacter) {
   choices = character;
 }
@@ -112,30 +103,23 @@ else if (confirmNumber) {
 else if (confirmLowercase) {
   choices = alpha;
 }
-// Created space variable to fill uppercase conversion
-else if (confirmUppercase) {
-  choices = space.concat(alpha2);
-};
 
-// password variable is an array placeholder for user generated amount of length
+// array placeholder for user length
 var password = [];
 
-// Start random selection variables:
-// Random selection for all variables: 
+// begin random selection of variables
 for (var i = 0; i < enter; i++) {
 var pickChoices = choices[Math.floor(Math.random() * choices.length)];
 password.push(pickChoices);
 }
 
 // This joins the password array and converts it to a string
-// Worked with a tutor to incorporate this option
 var ps = password.join("");
 UserInput(ps);
 return ps;
 }
 
 // This puts the password value into the textbox
-// Changed function input to use textcontent
 function UserInput(ps) {
   document.getElementById("password").textContent = ps;
 
